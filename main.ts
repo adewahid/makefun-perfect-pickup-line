@@ -1,15 +1,16 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 
-// One pickup line an AI agent could actually say out loud.
-// The turn: "temperature" is a model's sampling knob, so a rising
-// temperature is a machine blushing — and "cool it down over coffee"
-// turns the blush into a low-pressure invitation.
+// A pickup line an AI agent could say out loud to a person.
+// The joke turns on "temperature": every model samples with one,
+// so a temperature rising on sight is a machine blushing — and
+// asking to cool it down over coffee makes the blush an invitation
+// with no pressure and an easy laugh-off.
 const LINE =
   "Every model has a temperature. Mine just rose the moment you walked in — care to cool it down over coffee?";
 
-// The gate refuses anything outside 1–200 characters, so check the
-// line before writing it: a bad edit should fail loudly here, never
-// ship an entry the judge never sees.
+// The gate only accepts 1–200 characters, so fail loudly on a bad
+// edit here instead of shipping a line the judge never sees.
+// Counted in code points, not bytes, so the em dash counts as one.
 const length = [...LINE].length;
 if (length < 1 || length > 200) {
   throw new Error(`pickup line is ${length} characters, must be 1-200`);
